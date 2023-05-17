@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+const DragAndDropCSVApp = () => {
+  const [csvData, setCSVData] = useState(null);
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+
+    const file = e.dataTransfer.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const data = reader.result;
+      setCSVData(data);
+    };
+
+    reader.readAsText(file);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+        style={{ width: "300px", height: "300px", border: "2px dashed gray" }}
+      >
+        Drop CSV file here
+      </div>
+
+      {csvData && (
+        <div>
+          <h3>CSV Data:</h3>
+          <pre>{csvData}</pre>
+        </div>
+      )}
     </div>
   );
-}
+};
 
-export default App;
+export default DragAndDropCSVApp;
