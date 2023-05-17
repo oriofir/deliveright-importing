@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./App.css";
 
 const DragAndDropCSVApp = () => {
   const [csvData, setCSVData] = useState(null);
@@ -18,11 +19,12 @@ const DragAndDropCSVApp = () => {
   };
 
   return (
-    <div>
+    <div className="dragBox">
       <div
+        className="dottedBox"
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
-        style={{ width: "300px", height: "300px", border: "2px dashed gray" }}
+        style={{}}
       >
         Drop CSV file here
       </div>

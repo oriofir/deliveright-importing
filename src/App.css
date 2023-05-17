@@ -1,1 +1,15 @@
+.dragBox {
+  display: flex;
+  justify-content: center;
+  padding-top: 5ch;
+}
 
+.dottedBox{
+  display: flex;
+  flex-direction: row;;
+  justify-content: center;
+  align-items: center;
+   width: 300px;
+  height: 300px;
+  border: 2px dashed gray;
+}
