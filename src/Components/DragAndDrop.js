@@ -86,17 +86,18 @@ const dragAndDrop = () => {
   };
 
   return (
-    <div>
+    <div className="dragBox">
       <div
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
-        style={{ width: "300px", height: "300px", border: "2px dashed gray" }}
+        className="dottedBox"
+        // style={{ width: "300px", height: "300px", border: "2px dashed gray" }}
       >
         Drop CSV file here
       </div>
 
       {jsonData && (
-        <div>
+        <div className="jsonData">
           <h3>JSON Output:</h3>
           <pre>{jsonData}</pre>
         </div>

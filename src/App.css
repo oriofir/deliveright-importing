@@ -13,3 +13,8 @@
   height: 300px;
   border: 2px dashed gray;
 }
+
+.jsonData {
+  display: flex;
+  flex-wrap: wrap;
+}
