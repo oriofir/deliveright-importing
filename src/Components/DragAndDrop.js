@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Q from "q";
 
 const dragAndDrop = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
