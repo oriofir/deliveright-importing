@@ -25,8 +25,8 @@ const DragAndDrop = () => {
         SO_NUMBER: null,
         FIRST_NAME: null,
         LAST_NAME: null,
-        ADDRESS_1: null,
-        ADDRESS_2: null,
+        ADDRESS1: null,
+        ADDRESS2: null,
         CITY: null,
         STATE: null,
         ZIP: null,
@@ -66,18 +66,19 @@ const DragAndDrop = () => {
 
       const headers = data[0];
       const mappedData = data.slice(1).map((row) => {
-        const mappedRow = { ...template };
+        const mappedRow = {};
 
         for (let i = 0; i < row.length; i++) {
           const cellValue = row[i];
           const header = headers[i];
 
-          for (const key in mappedRow) {
-            const regex = new RegExp(key, "i");
-            if (regex.test(header)) {
-              mappedRow[key] = cellValue;
-              break;
-            }
+          // Dynamically match the header with the template key
+          const matchedKey = Object.keys(template).find((key) =>
+            new RegExp(key, "i").test(header)
+          );
+
+          if (matchedKey) {
+            mappedRow[matchedKey] = cellValue;
           }
         }
 
