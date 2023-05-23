@@ -72,7 +72,6 @@ const DragAndDrop = () => {
           const cellValue = row[i];
           const header = headers[i];
 
-          // Dynamically match the header with the template key
           const matchedKey = Object.keys(template).find((key) =>
             new RegExp(key, "i").test(header)
           );
