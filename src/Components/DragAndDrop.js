@@ -72,12 +72,24 @@ const DragAndDrop = () => {
           const cellValue = row[i];
           const header = headers[i];
 
-          const matchedKey = Object.keys(template).find((key) =>
-            new RegExp(key, "i").test(header)
-          );
+          // Handle different name variations
+          if (/(first name|given name)/i.test(header)) {
+            mappedRow["First Name"] = cellValue;
+          } else if (/(last name|surname)/i.test(header)) {
+            mappedRow["Last Name"] = cellValue;
+          } else if (/(full name|name)/i.test(header)) {
+            const [firstName, lastName] = cellValue.split(" ");
+            mappedRow["First Name"] = firstName;
+            mappedRow["Last Name"] = lastName;
+          } else {
+            // Handle other keys based on template
+            const matchedKey = Object.keys(template).find((key) =>
+              new RegExp(key, "i").test(header)
+            );
 
-          if (matchedKey) {
-            mappedRow[matchedKey] = cellValue;
+            if (matchedKey) {
+              mappedRow[matchedKey] = cellValue;
+            }
           }
         }
 
