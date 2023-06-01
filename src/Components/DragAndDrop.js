@@ -67,8 +67,12 @@ const DragAndDrop = () => {
       const headers = data[0];
       const mappedData = data.slice(1).map((row) => {
         const variationsMapping = {
+          "ORDER #": "PO_NUMBER",
+          Order: "PO_NUMBER",
           "First Name": "FIRST_NAME",
           "Last Name": "LAST_NAME",
+          "Ship To Cust Name": "FIRST_NAME",
+          "Ship To Cust Last Name": "LAST_NAME",
           "Phone Number": "PHONE1",
           Phone: "PHONE1",
           "Phone Number 2": "PHONE2",
@@ -112,54 +116,6 @@ const DragAndDrop = () => {
           if (matchedKey) {
             mappedRow[matchedKey] = cellValue;
           }
-
-          //   for (const templateKey in template) {
-          //     if (new RegExp(templateKey, "i").test(header.toLowerCase())) {
-          //       matchedKey = templateKey;
-          //       break;
-          //     }
-          //   }
-
-          //   if (matchedKey) {
-          //     mappedRow[matchedKey] = cellValue;
-          //   } else {
-          //     mappedRow[header] = cellValue;
-          //   }
-
-          //   // Handle different name variations
-          if (/(first name|given name)/i.test(header)) {
-            mappedRow["First Name"] = cellValue;
-          } else if (/(last name|surname)/i.test(header)) {
-            mappedRow["Last Name"] = cellValue;
-          } else if (/(full name|name)/i.test(header)) {
-            const [firstName, lastName] = cellValue.split(" ");
-            mappedRow["First Name"] = firstName;
-            mappedRow["Last Name"] = lastName;
-          }
-          //     // Handle other keys based on template
-          //     const matchedKey = Object.keys(template).find((key) =>
-          //       new RegExp(key, "i").test(header)
-          //     );
-
-          //     if (matchedKey) {
-          //       mappedRow[matchedKey] = cellValue;
-          //     }
-          //   }
-          //   if (/phone/i.test(header)) {
-          //     if (/1/i.test(header)) {
-          //       mappedRow["PHONE1"] = cellValue;
-          //     } else if (/2/i.test(header)) {
-          //       mappedRow["PHONE2"] = cellValue;
-          //     } else if (/contact/i.test(header)) {
-          //       mappedRow["CONTACT_PHONE"] = cellValue;
-          //     } else if (/mobile/i.test(header)) {
-          //       mappedRow["MOBILE"] = cellValue;
-          //     } else if (/tel/i.test(header)) {
-          //       mappedRow["TEL"] = cellValue;
-          //     } else if (/telephone/i.test(header)) {
-          //       mappedRow["TELEPHONE"] = cellValue;
-          //     }
-          //   }
         }
 
         return mappedRow;
