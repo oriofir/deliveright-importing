@@ -67,6 +67,8 @@ const DragAndDrop = () => {
       const headers = data[0];
       const mappedData = data.slice(1).map((row) => {
         const variationsMapping = {
+          "First Name": "FIRST_NAME",
+          "Last Name": "LAST_NAME",
           "Phone Number": "PHONE1",
           Phone: "PHONE1",
           "Phone Number 2": "PHONE2",
@@ -125,15 +127,15 @@ const DragAndDrop = () => {
           //   }
 
           //   // Handle different name variations
-          //   if (/(first name|given name)/i.test(header)) {
-          //     mappedRow["First Name"] = cellValue;
-          //   } else if (/(last name|surname)/i.test(header)) {
-          //     mappedRow["Last Name"] = cellValue;
-          //   } else if (/(full name|name)/i.test(header)) {
-          //     const [firstName, lastName] = cellValue.split(" ");
-          //     mappedRow["First Name"] = firstName;
-          //     mappedRow["Last Name"] = lastName;
-          //   } else {
+          if (/(first name|given name)/i.test(header)) {
+            mappedRow["First Name"] = cellValue;
+          } else if (/(last name|surname)/i.test(header)) {
+            mappedRow["Last Name"] = cellValue;
+          } else if (/(full name|name)/i.test(header)) {
+            const [firstName, lastName] = cellValue.split(" ");
+            mappedRow["First Name"] = firstName;
+            mappedRow["Last Name"] = lastName;
+          }
           //     // Handle other keys based on template
           //     const matchedKey = Object.keys(template).find((key) =>
           //       new RegExp(key, "i").test(header)
