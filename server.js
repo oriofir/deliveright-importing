@@ -15,7 +15,7 @@ app.post("/upload-csv", upload.array("csvFiles"), (req, res) => {
 
   const mappedData = [];
 
-  for (const file of req.files) {
+  for (const file of files) {
     const csvData = file.buffer.toString();
     const { data } = Papa.parse(csvData);
 
@@ -23,6 +23,7 @@ app.post("/upload-csv", upload.array("csvFiles"), (req, res) => {
     // const { data } = Papa.parse(csvData);
 
     if (!data.length) {
+      // Handle empty CSV file
       return res.json({ error: "No data found in the CSV file." });
     }
 
@@ -132,7 +133,7 @@ app.post("/upload-csv", upload.array("csvFiles"), (req, res) => {
     mappedData.push(fileMappedData);
   }
 
-  const jsonData = JSON.stringify(mappedData, null, 2);
+  const jsonData = JSON.stringify(mappedData, null, null);
 
   res.json({ success: true, data: jsonData });
 });

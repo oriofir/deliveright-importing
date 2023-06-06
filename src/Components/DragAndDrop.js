@@ -121,7 +121,7 @@ const DragAndDrop = () => {
       const formData = new FormData();
       formData.append("csvFiles", file);
 
-      fetch("/upload-csv", {
+      fetch("http://localhost:3000/upload-csv", {
         method: "POST",
         body: formData,
       })
