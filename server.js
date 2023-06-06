@@ -133,9 +133,12 @@ app.post("/upload-csv", upload.array("csvFiles"), (req, res) => {
     mappedData.push(fileMappedData);
   }
 
-  const jsonData = JSON.stringify(mappedData, null, null);
+  const jsonData = JSON.stringify(mappedData, null, 2);
 
-  res.json({ success: true, data: jsonData });
+  res.set("Content-Type", "application/json");
+  res.send(jsonData);
+
+  // res.json({ success: true, data: jsonData });
 });
 
 app.listen(3000, () => {
