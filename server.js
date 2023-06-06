@@ -1,19 +1,36 @@
-import React, { useState } from "react";
-import Papa from "papaparse";
+const express = require("express");
+const multer = require("multer");
+const Papa = require("papaparse");
 
-const DragAndDrop = () => {
-  const [jsonData, setJsonData] = useState(null);
+const app = express();
+const upload = multer();
 
-  const handleDrop = (e) => {
-    e.preventDefault();
+app.post(
+  "http://localhost:3000/upload-csv",
+  upload.array("csvFiles"),
+  (req, res) => {
+    // CSV parsing and data processing code here
+    const files = req.files;
 
-    const file = e.dataTransfer.files[0];
-    const reader = new FileReader();
+    if (!files || files.length === 0) {
+      return res.json({ error: "No files uploaded." });
+    }
 
-    reader.onload = () => {
-      const csvData = reader.result;
+    const mappedData = [];
+
+    for (const file of req.files) {
+      const csvData = file.buffer.toString();
       const { data } = Papa.parse(csvData);
+
+      // const csvData = req.file.buffer.toString();
+      // const { data } = Papa.parse(csvData);
+
+      if (!data.length) {
+        return res.json({ error: "No data found in the CSV file." });
+      }
+
       // Process the CSV data
+      const headers = data[0];
       const template = {
         PO_NUMBER: null,
         FREIGHT_TRACKING: null,
@@ -59,8 +76,7 @@ const DragAndDrop = () => {
         MASK_CUSTOMER_INFORMATION: null,
       };
 
-      const headers = data[0];
-      const mappedData = data.slice(1).map((row) => {
+      const fileMappedData = data.slice(1).map((row) => {
         const variationsMapping = {
           "ORDER #": "PO_NUMBER",
           Order: "PO_NUMBER",
@@ -115,46 +131,16 @@ const DragAndDrop = () => {
 
         return mappedRow;
       });
-      const jsonData = JSON.stringify(mappedData, null, 2);
-      setJsonData(jsonData);
 
-      const formData = new FormData();
-      formData.append("csvFile", file);
+      mappedData.push(fileMappedData);
+    }
 
-      fetch("/upload-csv", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
+    const jsonData = JSON.stringify(mappedData, null, 2);
 
-    reader.readAsText(file);
-  };
+    res.json({ success: true, data: jsonData });
+  }
+);
 
-  return (
-    <div className="dragBox">
-      <div
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
-        className="dottedBox"
-      >
-        Drop CSV file here
-      </div>
-
-      {jsonData && (
-        <div className="jsonData">
-          <h3>JSON Output:</h3>
-          <pre>{jsonData}</pre>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default DragAndDrop;
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
