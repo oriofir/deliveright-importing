@@ -119,7 +119,7 @@ const DragAndDrop = () => {
       setJsonData(jsonData);
 
       const formData = new FormData();
-      formData.append("csvFile", file);
+      formData.append("csvFiles", file);
 
       fetch("/upload-csv", {
         method: "POST",
