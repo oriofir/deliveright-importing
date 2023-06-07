@@ -128,6 +128,7 @@ const DragAndDrop = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
+          //          setJsonData(data);
         })
         .catch((error) => {
           console.error(error);
