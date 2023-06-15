@@ -4,6 +4,13 @@ const Papa = require("papaparse");
 
 const app = express();
 const upload = multer();
+const path = require("path");
+
+app.use(app.use(express.static(path.join(__dirname, "public"))));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 app.post("/upload-csv", upload.array("csvFiles"), (req, res) => {
   // CSV parsing and data processing code here
