@@ -148,6 +148,7 @@ app.post("/upload-csv", upload.array("csvFiles"), (req, res) => {
   // res.json({ success: true, data: jsonData });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

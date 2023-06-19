@@ -1,5 +1,8 @@
-import { render } from "@testing-library/react";
-import App from "./App";
+import React from "react";
+
+const { render } = require("@testing-library/react");
+
+const { App } = require("./App");
 
 test("renders page", () => {
   render(<App />);
