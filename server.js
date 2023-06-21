@@ -1,11 +1,13 @@
 const express = require("express");
 const multer = require("multer");
 const Papa = require("papaparse");
+const cors = require("cors");
 
 const app = express();
 const upload = multer();
 const path = require("path");
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("*", (req, res) => {
@@ -148,7 +150,7 @@ app.post("/upload-csv", upload.array("csvFiles"), (req, res) => {
   // res.json({ success: true, data: jsonData });
 });
 
-const port = 3000;
+const port = 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
