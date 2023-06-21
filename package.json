@@ -31,11 +31,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "webpack --config webpack.config.js",
-    "test":  "jest --config jest.config.js",
+    "test": "jest --config jest.config.js",
     "eject": "react-scripts eject"
   },
   "jest": {
-    "setupFilesAfterEnv": ["./jest.setup.js"]
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ]
   },
   "eslintConfig": {
     "extends": [

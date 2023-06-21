@@ -1,8 +1,7 @@
 import React from "react";
+import App from "./App";
 
 const { render } = require("@testing-library/react");
-
-const { App } = require("./App");
 
 test("renders page", () => {
   render(<App />);
